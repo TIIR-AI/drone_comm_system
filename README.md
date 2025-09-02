@@ -81,4 +81,14 @@ python server.py
  python drone_client.py
  ```
 
- This terminal will show log messages as the drone flies its path and publishes data.
+You will see messages indicating that the drone is publishing its location data. In the server terminal, you'll see messages that it's receiving this data.
+
+Open the User Interface via your web browser and go to the following address:
+Open your web browser and go to the following address:
+```
+http://127.0.0.1:5000
+```
+
+You should see a map showing real time tracking updates of the drone
+
+![Web App](assets/webapp.jpg)
