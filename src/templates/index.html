@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drone Package Tracker</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+     crossorigin=""/>
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+        #map { height: 70vh; width: 100%; }
+        #status-container { padding: 20px; background-color: #f4f4f4; border-top: 1px solid #ddd; }
+        h1, h2 { text-align: center; }
+    </style>
+</head>
+<body>
+    <h1>Drone Package Tracker 📦</h1>
+    <div id="map"></div>
+    <div id="status-container">
+        <h2>Live Status</h2>
+        <p id="status-text">Awaiting drone signal...</p>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // --- Map Initialization ---
+            const map = L.map('map').setView([43.518, -79.883], 14); // Centered on Milton, ON
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(map);
+            let droneMarker = null;
+
+            // --- WebSocket Connection ---
+            // Note: In a real app, you would fetch the token securely.
+            // For this example, we'll assume the token is obtained and managed.
+            const socket = io();
+
+            socket.on('connect', () => {
+                console.log('Connected to server!');
+            });
+
+            socket.on('drone_update', (data) => {
+                console.log('Received update:', data);
+                const update = JSON.parse(data);
+                const { location, status } = update;
+                
+                // Update status text
+                document.getElementById('status-text').textContent = `Status: ${status}`;
+
+                // Update map marker
+                const latLng = [location.lat, location.lon];
+                if (droneMarker) {
+                    droneMarker.setLatLng(latLng);
+                } else {
+                    // Create a custom icon for the drone
+                    const droneIcon = L.icon({
+                        iconUrl: 'https://cdn-icons-png.flaticon.com/512/826/826070.png',
+                        iconSize: [40, 40],
+                    });
+                    droneMarker = L.marker(latLng, { icon: droneIcon }).addTo(map);
+                }
+                map.panTo(latLng); // Center map on the drone
+            });
+
+            socket.on('disconnect', () => {
+                console.log('Disconnected from server.');
+            });
+        });
+    </script>
+</body>
+</html>
