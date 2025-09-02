@@ -1,0 +1,57 @@
+[
+    {
+        "lat": 43.645,
+        "lon": -79.3805,
+        "status": "In Transit: Departing from Hub"
+    },
+    {
+        "lat": 43.6465,
+        "lon": -79.385,
+        "status": "In Transit: Climbing over Financial District"
+    },
+    {
+        "lat": 43.6478,
+        "lon": -79.391,
+        "status": "In Transit: Crossing University Avenue"
+    },
+    {
+        "lat": 43.6485,
+        "lon": -79.398,
+        "status": "In Transit: Flying over OCAD University"
+    },
+    {
+        "lat": 43.6488,
+        "lon": -79.4045,
+        "status": "In Transit: Approaching Spadina Avenue"
+    },
+    {
+        "lat": 43.649,
+        "lon": -79.407,
+        "status": "In Transit: Navigating over Queen Street West"
+    },
+    {
+        "lat": 43.6485,
+        "lon": -79.41,
+        "status": "In Transit: Approaching Bathurst Street"
+    },
+    {
+        "lat": 43.647,
+        "lon": -79.4125,
+        "status": "In Transit: Final Approach to Delivery Zone"
+    },
+    {
+        "lat": 43.646,
+        "lon": -79.4135,
+        "status": "Descending for Delivery"
+    },
+    {
+        "lat": 43.6458,
+        "lon": -79.4138,
+        "status": "Hovering at Destination"
+    },
+    {
+        "lat": 43.6458,
+        "lon": -79.4139,
+        "status": "Package Delivered"
+    }
+]
