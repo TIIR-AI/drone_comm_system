@@ -10,24 +10,29 @@ This project implements a secure, real-time communication system for monitoring 
 
 ## Key Features
 
-- **Real-Time GPS Tracking**: Monitor the drone's location live on an OpenStreetMap interface.
-- **Secure Communication**: Uses the lightweight MQTT protocol for IoT communication and JWT for authenticating clients (in a full implementation).
-- **Real-Time Status Updates**: Receive live updates from the drone, such as *"In Transit"* or *"Package Delivered"*.
-- **Decoupled Architecture**: The drone and user client do not communicate directly; all messages are securely routed through the central server.
-- **Simple Simulation**: Includes a script to simulate a drone flying a predefined path, making it easy to test the entire system.
+- Real-Time GPS Tracking 
+  - Monitor the drone's location live on an OpenStreetMap interface.
+- Secure Communication 
+  - Uses the lightweight MQTT protocol for IoT communication and JWT for authenticating clients (in a full implementation).
+- Real-Time Status Updates 
+  - Receive live updates from the drone, such as *"In Transit"* or *"Package Delivered"*.
+- Decoupled Architecture 
+  - The drone and user client do not communicate directly; all messages are securely routed through the central server.
+- Simple Simulation 
+  - Includes a script to simulate a drone flying a predefined path, making it easy to test the entire system.
 
 
 ## System Architecture
 
 The system consists of three main components that communicate via an **MQTT message broker**:
 
-- **Drone Client (`drone_client.py`)**  
+- Drone Client (`drone_client.py`)  
   A Python script that simulates a drone. It periodically publishes its GPS coordinates and status updates to a specific MQTT topic.
 
-- **Ground Control Server (`server.py`)**  
+- Ground Control Server (`server.py`)  
   A Flask server that subscribes to the MQTT topic. When it receives a message from the drone, it forwards the data to the user interface using WebSockets.
 
-- **User Interface (`index.html`)**  
+- User Interface (`index.html`)  
   A web page that connects to the server via WebSockets. It uses **Leaflet.js** to display the drone's location on a map and updates the status in real-time.
 
 **Data Flow:**

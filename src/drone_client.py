@@ -4,16 +4,14 @@ import time
 import json
 import random
 
-# --- Configuration ---
 MQTT_BROKER = 'broker.emqx.io'
 MQTT_PORT = 1883
 DRONE_ID = '123'
 DRONE_TOPIC = f'drone/{DRONE_ID}/telemetry'
 FLIGHT_PATH_FILE = 'flight_path.json'
 
-# --- Function to load the flight path from a JSON file ---
 def load_flight_path(file_path):
-    """Loads the flight path from a specified JSON file."""
+    ## Loads the flight path from a specified JSON file
     try:
         with open(file_path, 'r') as f:
             path = json.load(f)
@@ -27,13 +25,12 @@ def load_flight_path(file_path):
         return None
 
 def on_connect(client, userdata, flags, rc):
-    """Callback for MQTT connection."""
+    ## Callback for MQTT connection
     if rc == 0:
         print("Drone client connected to MQTT Broker!")
     else:
         print(f"Failed to connect, return code {rc}\n")
 
-# --- Main Simulation Logic ---
 flight_path = load_flight_path(FLIGHT_PATH_FILE)
 
 if flight_path:

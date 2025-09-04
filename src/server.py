@@ -7,7 +7,7 @@ import datetime
 
 
 
-# --- Configuration ---
+# configuration
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your-very-secret-key' # CHANGE THIS IN PRODUCTION
 socketio = SocketIO(app)
@@ -16,7 +16,7 @@ MQTT_BROKER = 'broker.emqx.io' # Using a public broker for this example
 MQTT_PORT = 1883
 DRONE_TOPIC = 'drone/123/telemetry'
 
-# --- JWT Authentication ---
+# JWT Authentication
 def generate_token(username):
     """Generates a JWT for a user."""
     payload = {
@@ -32,7 +32,7 @@ def get_token(username):
     token = generate_token(username)
     return jsonify({'token': token})
 
-# --- MQTT Client Setup ---
+# MQTT Client Setup
 def on_connect(client, userdata, flags, rc):
     """Callback for when the client connects to the broker."""
     if rc == 0:
@@ -54,20 +54,20 @@ mqtt_client.on_message = on_message
 mqtt_client.connect(MQTT_BROKER, MQTT_PORT, 60)
 mqtt_client.loop_start() # Start a background thread to handle MQTT messages
 
-# --- Web Server Routes ---
+# Web Server Routes
 @app.route('/')
 def index():
-    """Serves the main HTML page."""
+    ## Serves the main HTML page
     return render_template('index.html')
 
 @socketio.on('connect')
 def handle_connect():
-    """Handles a new WebSocket connection from a user."""
+    ## Handles a new WebSocket connection from a user
     print('Client connected')
 
 @socketio.on('disconnect')
 def handle_disconnect():
-    """Handles a WebSocket disconnection."""
+    ## Handles a WebSocket disconnection
     print('Client disconnected')
 
 if __name__ == '__main__':
