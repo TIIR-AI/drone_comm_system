@@ -12,13 +12,13 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your-very-secret-key' # CHANGE THIS IN PRODUCTION
 socketio = SocketIO(app)
 
-MQTT_BROKER = 'broker.emqx.io' # Using a public broker for this example
+MQTT_BROKER = 'broker.emqx.io' 
 MQTT_PORT = 1883
 DRONE_TOPIC = 'drone/123/telemetry'
 
 # JWT Authentication
 def generate_token(username):
-    """Generates a JWT for a user."""
+    ## generates a JWT for a user
     payload = {
         'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=1),
         'iat': datetime.datetime.utcnow(),
@@ -34,7 +34,7 @@ def get_token(username):
 
 # MQTT Client Setup
 def on_connect(client, userdata, flags, rc):
-    """Callback for when the client connects to the broker."""
+    ## callback for when the client connects to the broker
     if rc == 0:
         print("Connected to MQTT Broker!")
         client.subscribe(DRONE_TOPIC)
@@ -42,7 +42,7 @@ def on_connect(client, userdata, flags, rc):
         print(f"Failed to connect, return code {rc}\n")
 
 def on_message(client, userdata, msg):
-    """Callback for when a message is received from the drone."""
+    ## callback for when a message is received from the drone
     payload = msg.payload.decode()
     print(f"Received from drone: {payload}")
     # Broadcast the drone's data to all connected web clients
